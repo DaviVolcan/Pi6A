@@ -17,12 +17,12 @@ def newtonraphson(f, df, x0, tol, max_iter):
         fx = f(x)
         dfx = df(x)
         if dfx == 0:
-            raise ValueError("Derivative is zero. No solution found.")
-        x_new = x - fx / dfx
-        if abs(x_new - x) < tol:
-            return x_new
-        x = x_new
-    raise ValueError("Maximum number of iterations reached. No solution found.")
+            raise ValueError("A derivada é zero. Não é possível continuar.")
+        x_novo = x - fx / dfx
+        if abs(x_novo - x) < tol:
+            return x_novo
+        x = x_novo
+    raise ValueError("Maximo de iterações atingido. Não foi possível encontrar a raiz.")
 
 # Executando o método de Newton-Raphson
 raiz = newtonraphson(f, df, x0, tol, max_iter)
