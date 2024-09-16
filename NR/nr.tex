@@ -1,0 +1,188 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{geometry}
+\usepackage{verbatim}
+\usepackage{hyperref}
+\geometry{a4paper, margin=1in}
+
+\begin{document}
+
+\section*{Método de Newton-Raphson para $f(x) = x^4 + x - 4$}
+
+Vamos aplicar o método de Newton-Raphson passo a passo para encontrar a raiz da função \( f(x) = x^4 + x - 4 \), com chute inicial \( x_0 = 1{,}5 \), tolerância \( \text{tol} = 1 \times 10^{-6} \) e máximo de 100 iterações.
+
+\subsection*{Passo 1: Definir as funções}
+
+\begin{itemize}
+    \item \textbf{Função original}: \( f(x) = x^4 + x - 4 \)
+    \item \textbf{Derivada da função}: \( f'(x) = 4x^3 + 1 \)
+\end{itemize}
+
+\subsection*{Passo 2: Iteração do Método de Newton-Raphson}
+
+O método de Newton-Raphson utiliza a fórmula:
+
+\[
+x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}
+\]
+
+Vamos calcular \( x_1, x_2, x_3, \ldots \) até que \( |x_{n+1} - x_n| < \text{tol} \).
+
+\subsubsection*{Iteração 0}
+
+\textbf{Chute inicial}: \( x_0 = 1{,}5 \)
+
+1. \textbf{Calcular \( f(x_0) \)}:
+
+\[
+f(1{,}5) = (1{,}5)^4 + 1{,}5 - 4 = 5{,}0625 + 1{,}5 - 4 = 2{,}5625
+\]
+
+2. \textbf{Calcular \( f'(x_0) \)}:
+
+\[
+f'(1{,}5) = 4(1{,}5)^3 + 1 = 4(3{,}375) + 1 = 13{,}5 + 1 = 14{,}5
+\]
+
+3. \textbf{Atualizar \( x_1 \)}:
+
+\[
+x_1 = x_0 - \frac{f(x_0)}{f'(x_0)} = 1{,}5 - \frac{2{,}5625}{14{,}5} \approx 1{,}5 - 0{,}1767241 = 1{,}3232759
+\]
+
+\subsubsection*{Iteração 1}
+
+\textbf{Novo valor}: \( x_1 = 1{,}3232759 \)
+
+1. \textbf{Calcular \( f(x_1) \)}:
+
+\[
+\begin{aligned}
+f(1{,}3232759) &= (1{,}3232759)^4 + 1{,}3232759 - 4 \\
+&= 3{,}0654 + 1{,}3232759 - 4 \\
+&= 0{,}3886759
+\end{aligned}
+\]
+
+2. \textbf{Calcular \( f'(x_1) \)}:
+
+\[
+\begin{aligned}
+f'(1{,}3232759) &= 4(1{,}3232759)^3 + 1 \\
+&= 4(2{,}31574) + 1 \\
+&= 9{,}26296
+\end{aligned}
+\]
+
+3. \textbf{Atualizar \( x_2 \)}:
+
+\[
+x_2 = x_1 - \frac{f(x_1)}{f'(x_1)} = 1{,}3232759 - \frac{0{,}3886759}{9{,}26296} \approx 1{,}3232759 - 0{,}0419669 = 1{,}2813090
+\]
+
+\subsubsection*{Iteração 2}
+
+\textbf{Novo valor}: \( x_2 = 1{,}2813090 \)
+
+1. \textbf{Calcular \( f(x_2) \)}:
+
+\[
+\begin{aligned}
+f(1{,}2813090) &= (1{,}2813090)^4 + 1{,}2813090 - 4 \\
+&= 2{,}695355 + 1{,}2813090 - 4 \\
+&= -0{,}023336
+\end{aligned}
+\]
+
+2. \textbf{Calcular \( f'(x_2) \)}:
+
+\[
+\begin{aligned}
+f'(1{,}2813090) &= 4(1{,}2813090)^3 + 1 \\
+&= 4(2{,}10145) + 1 \\
+&= 9{,}4058
+\end{aligned}
+\]
+
+3. \textbf{Atualizar \( x_3 \)}:
+
+\[
+x_3 = x_2 - \left( \frac{f(x_2)}{f'(x_2)} \right) = 1{,}2813090 - \left( \frac{-0{,}023336}{9{,}4058} \right) \approx 1{,}2813090 + 0{,}0024822 = 1{,}2837912
+\]
+
+\subsubsection*{Iteração 3}
+
+\textbf{Novo valor}: \( x_3 = 1{,}2837912 \)
+
+1. \textbf{Calcular \( f(x_3) \)}:
+
+\[
+\begin{aligned}
+f(1{,}2837912) &= (1{,}2837912)^4 + 1{,}2837912 - 4 \\
+&= 2{,}716296 + 1{,}2837912 - 4 \\
+&= 0{,}000088
+\end{aligned}
+\]
+
+2. \textbf{Calcular \( f'(x_3) \)}:
+
+\[
+\begin{aligned}
+f'(1{,}2837912) &= 4(1{,}2837912)^3 + 1 \\
+&= 4(2{,}10962) + 1 \\
+&= 9{,}43848
+\end{aligned}
+\]
+
+3. \textbf{Atualizar \( x_4 \)}:
+
+\[
+x_4 = x_3 - \frac{f(x_3)}{f'(x_3)} = 1{,}2837912 - \frac{0{,}000088}{9{,}43848} \approx 1{,}2837912 - 0{,}0000093 = 1{,}2837819
+\]
+
+\subsubsection*{Iteração 4}
+
+\textbf{Novo valor}: \( x_4 = 1{,}2837819 \)
+
+1. \textbf{Calcular \( f(x_4) \)}:
+
+\[
+f(1{,}2837819) = (1{,}2837819)^4 + 1{,}2837819 - 4 \approx 0{,}0000001
+\]
+
+2. \textbf{Calcular \( f'(x_4) \)}:
+
+\[
+f'(1{,}2837819) = 4(1{,}2837819)^3 + 1 \approx 9{,}43824
+\]
+
+3. \textbf{Atualizar \( x_5 \)}:
+
+\[
+x_5 = x_4 - \frac{f(x_4)}{f'(x_4)} = 1{,}2837819 - \frac{0{,}0000001}{9{,}43824} \approx 1{,}2837819 - 0{,}00000001 = 1{,}2837817
+\]
+
+\subsection*{Convergência}
+
+Calculamos \( |x_5 - x_4| = |1{,}2837817 - 1{,}2837819| = 2 \times 10^{-7} \), que é menor que a tolerância \( 1 \times 10^{-6} \).
+
+\subsection*{Resposta Final}
+
+A raiz aproximada é \( x \approx 1{,}2837817 \).
+
+\subsection*{Comparação com o resultado do código}
+
+O código fornece a raiz como:
+
+\begin{verbatim}
+print(raiz)
+# Saída: 1.2837816658635381
+\end{verbatim}
+
+Nosso cálculo manual está em excelente concordância com o resultado do código.
+
+\subsection*{Conclusão}
+
+Utilizando o método de Newton-Raphson, encontramos a raiz da função \( f(x) = x^4 + x - 4 \) como aproximadamente \( x = 1{,}2837817 \) após 5 iterações, com uma tolerância de \( 1 \times 10^{-6} \).
+
+\end{document}

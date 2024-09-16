@@ -1,0 +1,270 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\title{oi}
+\author{Volcan LAB}
+\date{September 2024}
+
+\begin{document}
+
+\maketitle
+
+
+
+\title{Resolução Manual do Método de Jacobi}
+\author{}
+\date{}
+
+\maketitle
+
+\section*{Introdução}
+
+Vamos resolver manualmente os cálculos do método iterativo de Jacobi implementado no código fornecido.
+
+\section*{Dados Iniciais}
+
+Matriz $A$ e vetor $B$:
+
+\[
+A = \begin{bmatrix}
+10 & 2 & 1 \\
+1 & 5 & 1 \\
+2 & 3 & 10 \\
+\end{bmatrix}, \quad
+B = \begin{bmatrix}
+7 \\
+-8 \\
+6 \\
+\end{bmatrix}
+\]
+
+Vetor inicial $X^{(0)}$:
+
+\[
+X^{(0)} = \begin{bmatrix}
+0.7 \\
+-1.6 \\
+0.6 \\
+\end{bmatrix}
+\]
+
+\section*{Passo 1: Cálculo das Matrizes $D$ e $I$}
+
+Para o método de Jacobi, definimos:
+
+\[
+D_{ij} = \begin{cases}
+0, & \text{se } i = j \\
+-\dfrac{A_{ij}}{A_{ii}}, & \text{se } i \neq j \\
+\end{cases}
+\]
+
+\[
+I_i = \dfrac{B_i}{A_{ii}}
+\]
+
+\subsection*{Cálculo de $D$ e $I$}
+
+\textbf{Para $i = 0$:}
+
+\begin{align*}
+D_{00} &= 0 \\
+D_{01} &= -\dfrac{A_{01}}{A_{00}} = -\dfrac{2}{10} = -0.2 \\
+D_{02} &= -\dfrac{A_{02}}{A_{00}} = -\dfrac{1}{10} = -0.1 \\
+I_0 &= \dfrac{B_0}{A_{00}} = \dfrac{7}{10} = 0.7 \\
+\end{align*}
+
+\textbf{Para $i = 1$:}
+
+\begin{align*}
+D_{11} &= 0 \\
+D_{10} &= -\dfrac{A_{10}}{A_{11}} = -\dfrac{1}{5} = -0.2 \\
+D_{12} &= -\dfrac{A_{12}}{A_{11}} = -\dfrac{1}{5} = -0.2 \\
+I_1 &= \dfrac{B_1}{A_{11}} = \dfrac{-8}{5} = -1.6 \\
+\end{align*}
+
+\textbf{Para $i = 2$:}
+
+\begin{align*}
+D_{22} &= 0 \\
+D_{20} &= -\dfrac{A_{20}}{A_{22}} = -\dfrac{2}{10} = -0.2 \\
+D_{21} &= -\dfrac{A_{21}}{A_{22}} = -\dfrac{3}{10} = -0.3 \\
+I_2 &= \dfrac{B_2}{A_{22}} = \dfrac{6}{10} = 0.6 \\
+\end{align*}
+
+\textbf{Matriz $D$:}
+
+\[
+D = \begin{bmatrix}
+0 & -0.2 & -0.1 \\
+-0.2 & 0 & -0.2 \\
+-0.2 & -0.3 & 0 \\
+\end{bmatrix}
+\]
+
+\textbf{Vetor $I$:}
+
+\[
+I = \begin{bmatrix}
+0.7 \\
+-1.6 \\
+0.6 \\
+\end{bmatrix}
+\]
+
+\section*{Passo 2: Iterações do Método de Jacobi}
+
+Critério de parada: erro relativo percentual menor que $\text{tol} = 5\%$ ou número máximo de iterações $\text{max\_iter} = 4$.
+
+\subsection*{Iteração 1 ($k = 1$)}
+
+Calcular $X^{(1)} = D \cdot X^{(0)} + I$.
+
+\textbf{Cálculo de $Y = D \cdot X^{(0)}$:}
+
+\begin{align*}
+Y_0 &= D_{01} X^{(0)}_1 + D_{02} X^{(0)}_2 \\
+&= (-0.2)(-1.6) + (-0.1)(0.6) \\
+&= 0.32 - 0.06 = 0.26 \\
+\\
+Y_1 &= D_{10} X^{(0)}_0 + D_{12} X^{(0)}_2 \\
+&= (-0.2)(0.7) + (-0.2)(0.6) \\
+&= -0.14 - 0.12 = -0.26 \\
+\\
+Y_2 &= D_{20} X^{(0)}_0 + D_{21} X^{(0)}_1 \\
+&= (-0.2)(0.7) + (-0.3)(-1.6) \\
+&= -0.14 + 0.48 = 0.34 \\
+\end{align*}
+
+\textbf{Cálculo de $X^{(1)} = Y + I$:}
+
+\[
+X^{(1)} = \begin{bmatrix}
+0.26 + 0.7 \\
+-0.26 - 1.6 \\
+0.34 + 0.6 \\
+\end{bmatrix} = \begin{bmatrix}
+0.96 \\
+-1.86 \\
+0.94 \\
+\end{bmatrix}
+\]
+
+\textbf{Cálculo do erro relativo percentual:}
+
+\[
+\text{erro}_i = \left| \dfrac{X^{(1)}_i - X^{(0)}_i}{X^{(1)}_i} \right| \times 100\%
+\]
+
+\begin{align*}
+\text{erro}_0 &= \left| \dfrac{0.96 - 0.7}{0.96} \right| \times 100\% \approx 27.08\% \\
+\text{erro}_1 &= \left| \dfrac{-1.86 - (-1.6)}{-1.86} \right| \times 100\% \approx 13.98\% \\
+\text{erro}_2 &= \left| \dfrac{0.94 - 0.6}{0.94} \right| \times 100\% \approx 36.17\% \\
+\end{align*}
+
+Como os erros não estão abaixo de $5\%$, procedemos para a próxima iteração.
+
+\subsection*{Iteração 2 ($k = 2$)}
+
+Atualizar $X^{(0)} = X^{(1)}$.
+
+\textbf{Cálculo de $Y = D \cdot X^{(1)}$:}
+
+\begin{align*}
+Y_0 &= (-0.2)(-1.86) + (-0.1)(0.94) \\
+&= 0.372 - 0.094 = 0.278 \\
+\\
+Y_1 &= (-0.2)(0.96) + (-0.2)(0.94) \\
+&= -0.192 - 0.188 = -0.38 \\
+\\
+Y_2 &= (-0.2)(0.96) + (-0.3)(-1.86) \\
+&= -0.192 + 0.558 = 0.366 \\
+\end{align*}
+
+\textbf{Cálculo de $X^{(2)} = Y + I$:}
+
+\[
+X^{(2)} = \begin{bmatrix}
+0.278 + 0.7 \\
+-0.38 - 1.6 \\
+0.366 + 0.6 \\
+\end{bmatrix} = \begin{bmatrix}
+0.978 \\
+-1.98 \\
+0.966 \\
+\end{bmatrix}
+\]
+
+\textbf{Cálculo do erro relativo percentual:}
+
+\begin{align*}
+\text{erro}_0 &= \left| \dfrac{0.978 - 0.96}{0.978} \right| \times 100\% \approx 1.84\% \\
+\text{erro}_1 &= \left| \dfrac{-1.98 - (-1.86)}{-1.98} \right| \times 100\% \approx 6.06\% \\
+\text{erro}_2 &= \left| \dfrac{0.966 - 0.94}{0.966} \right| \times 100\% \approx 2.69\% \\
+\end{align*}
+
+Como ainda temos um erro acima de $5\%$ no segundo elemento, continuamos.
+
+\subsection*{Iteração 3 ($k = 3$)}
+
+Atualizar $X^{(1)} = X^{(2)}$.
+
+\textbf{Cálculo de $Y = D \cdot X^{(2)}$:}
+
+\begin{align*}
+Y_0 &= (-0.2)(-1.98) + (-0.1)(0.966) \\
+&= 0.396 - 0.0966 = 0.2994 \\
+\\
+Y_1 &= (-0.2)(0.978) + (-0.2)(0.966) \\
+&= -0.1956 - 0.1932 = -0.3888 \\
+\\
+Y_2 &= (-0.2)(0.978) + (-0.3)(-1.98) \\
+&= -0.1956 + 0.594 = 0.3984 \\
+\end{align*}
+
+\textbf{Cálculo de $X^{(3)} = Y + I$:}
+
+\[
+X^{(3)} = \begin{bmatrix}
+0.2994 + 0.7 \\
+-0.3888 - 1.6 \\
+0.3984 + 0.6 \\
+\end{bmatrix} = \begin{bmatrix}
+0.9994 \\
+-1.9888 \\
+0.9984 \\
+\end{bmatrix}
+\]
+
+\textbf{Cálculo do erro relativo percentual:}
+
+\begin{align*}
+\text{erro}_0 &= \left| \dfrac{0.9994 - 0.978}{0.9994} \right| \times 100\% \approx 2.14\% \\
+\text{erro}_1 &= \left| \dfrac{-1.9888 - (-1.98)}{-1.9888} \right| \times 100\% \approx 0.44\% \\
+\text{erro}_2 &= \left| \dfrac{0.9984 - 0.966}{0.9984} \right| \times 100\% \approx 3.25\% \\
+\end{align*}
+
+Agora, todos os erros estão abaixo de $5\%$. Portanto, podemos interromper as iterações.
+
+\section*{Resultado Final}
+
+O vetor $X$ aproximado após as iterações é:
+
+\[
+X = \begin{bmatrix}
+0.978 \\
+-1.98 \\
+0.966 \\
+\end{bmatrix}
+\]
+
+Este é o resultado obtido no código após as iterações com o critério de parada definido.
+
+\end{document}
+
+\section{Introduction}
+
+\end{document}
