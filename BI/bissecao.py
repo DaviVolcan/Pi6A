@@ -31,3 +31,5 @@ max_iter = 100
 # Executando o método da Bisseção
 raiz = bissecao(f, a, b, tol, max_iter)
 print(raiz)
+
+# Output: 1.2837820053100586

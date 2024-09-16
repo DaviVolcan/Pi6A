@@ -44,3 +44,4 @@ while k < max_iter:
     k += 1
 
 print(X)
+# Output: [ 0.978 -1.98   0.966]

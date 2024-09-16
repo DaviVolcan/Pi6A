@@ -27,3 +27,4 @@ def newtonraphson(f, df, x0, tol, max_iter):
 # Executando o método de Newton-Raphson
 raiz = newtonraphson(f, df, x0, tol, max_iter)
 print(raiz)
+#output: 1.2837816658635381
