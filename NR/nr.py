@@ -1,12 +1,9 @@
-# Re-executando o código após o reset
-# Definindo as funções f e df para simular o comportamento
 def f(x):
     return x**4 + x - 4
 
 def df(x):
     return 4*x**3 + 1
 
-# Parâmetros iniciais
 x0 = 1.5  # Chute inicial
 tol = 1e-6  # Tolerância
 max_iter = 100  # Número máximo de iterações
