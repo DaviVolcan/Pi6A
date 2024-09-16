@@ -21,7 +21,6 @@ def newtonraphson(f, df, x0, tol, max_iter):
         x = x_novo
     raise ValueError("Maximo de iterações atingido. Não foi possível encontrar a raiz.")
 
-# Executando o método de Newton-Raphson
 raiz = newtonraphson(f, df, x0, tol, max_iter)
 print(raiz)
 #output: 1.2837816658635381
