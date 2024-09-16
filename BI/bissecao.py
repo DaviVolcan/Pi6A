@@ -1,7 +1,9 @@
 # Simulando novamente a execução para fornecer a resposta correta
 # Definindo a função f(x)
+import math
+
 def f(x):
-    return x**4 + x - 4
+    return x - math.cos(x)
 
 # Método da Bisseção
 def bissecao(f, a, b, tol, max_iter):
@@ -23,7 +25,7 @@ def bissecao(f, a, b, tol, max_iter):
     raise ValueError("Número máximo de iterações atingido. Não foi possível encontrar a raiz.")
 
 # Parâmetros iniciais
-a = 1
+a = 0
 b = 2
 tol = 1e-6
 max_iter = 100
@@ -32,4 +34,4 @@ max_iter = 100
 raiz = bissecao(f, a, b, tol, max_iter)
 print(raiz)
 
-# Output: 1.2837820053100586
+# Output: 0.7390851974487305
