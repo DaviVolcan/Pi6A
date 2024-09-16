@@ -1,5 +1,3 @@
-# Simulando novamente a execução para fornecer a resposta correta
-# Definindo a função f(x)
 import math
 
 def f(x):
