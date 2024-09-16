@@ -1,299 +1,94 @@
 \documentclass{article}
-\usepackage[utf8]{inputenc}
 \usepackage{amsmath}
-\usepackage{geometry}
-\usepackage{array}
-\usepackage{booktabs}
-\usepackage{hyperref}
-\usepackage{graphicx}
-\geometry{a4paper, margin=1in}
 
 \begin{document}
 
-\section*{Método da Bisseção para $f(x) = x^4 + x - 4$}
+Queremos encontrar a raiz de \( f(x) = x - \cos(x) \), ou seja, resolver \(x - \cos(x) = 0\).
 
-Vamos realizar manualmente as iterações do método da bisseção para encontrar a raiz da função \( f(x) = x^4 + x - 4 \) no intervalo inicial \([1, 2]\), com tolerância \( \text{tol} = 1 \times 10^{-6} \) e um máximo de 100 iterações.
+\section*{Escolha do intervalo inicial}
 
-\subsection*{Passo 1: Verificar as Condições Iniciais}
+Precisamos de um intervalo \([a, b]\) tal que \(f(a)\) e \(f(b)\) tenham sinais opostos.
 
-Antes de aplicar o método da bisseção, precisamos verificar se a função \( f(x) \) tem sinais opostos nos extremos do intervalo \([a, b]\):
+- \(f(0) = 0 - \cos(0) = -1\)
+- \(f(1) = 1 - \cos(1) \approx 0.4597\)
 
-\begin{itemize}
-    \item \textbf{Calculando \( f(a) \):}
-    \[
-    f(1) = (1)^4 + 1 - 4 = 1 + 1 - 4 = -2
-    \]
-    \item \textbf{Calculando \( f(b) \):}
-    \[
-    f(2) = (2)^4 + 2 - 4 = 16 + 2 - 4 = 14
-    \]
-\end{itemize}
+Como \(f(0) \times f(1) < 0\), sabemos que a raiz está no intervalo \([0, 1]\).
 
-Como \( f(1) = -2 \) e \( f(2) = 14 \), temos que \( f(1) \times f(2) = -28 < 0 \). Portanto, existe pelo menos uma raiz no intervalo \([1, 2]\).
+\section*{Iterações}
 
-\subsection*{Passo 2: Aplicar o Método da Bisseção}
-
-O método da bisseção utiliza a fórmula:
-
+\textbf{1ª iteração:}
 \[
-c = \frac{a + b}{2}
+c = \frac{0 + 1}{2} = 0.5
+\]
+\[
+f(0.5) = 0.5 - \cos(0.5) \approx -0.3776
+\]
+Novo intervalo: \([0.5, 1]\)
+
+\textbf{2ª iteração:}
+\[
+c = \frac{0.5 + 1}{2} = 0.75
+\]
+\[
+f(0.75) = 0.75 - \cos(0.75) \approx 0.0183
+\]
+Novo intervalo: \([0.5, 0.75]\)
+
+\textbf{3ª iteração:}
+\[
+c = \frac{0.5 + 0.75}{2} = 0.625
+\]
+\[
+f(0.625) = 0.625 - \cos(0.625) \approx -0.18596
+\]
+Novo intervalo: \([0.625, 0.75]\)
+
+\textbf{4ª iteração:}
+\[
+c = \frac{0.625 + 0.75}{2} = 0.6875
+\]
+\[
+f(0.6875) = 0.6875 - \cos(0.6875) \approx -0.0845
+\]
+Novo intervalo: \([0.6875, 0.75]\)
+
+\textbf{5ª iteração:}
+\[
+c = \frac{0.6875 + 0.75}{2} = 0.71875
+\]
+\[
+f(0.71875) = 0.71875 - \cos(0.71875) \approx -0.03365
+\]
+Novo intervalo: \([0.71875, 0.75]\)
+
+\textbf{6ª iteração:}
+\[
+c = \frac{0.71875 + 0.75}{2} = 0.734375
+\]
+\[
+f(0.734375) = 0.734375 - \cos(0.734375) \approx -0.00533
+\]
+Novo intervalo: \([0.734375, 0.75]\)
+
+\textbf{7ª iteração:}
+\[
+c = \frac{0.734375 + 0.75}{2} = 0.7421875
+\]
+\[
+f(0.7421875) = 0.7421875 - \cos(0.7421875) \approx 0.00629
+\]
+Novo intervalo: \([0.734375, 0.7421875]\)
+
+\textbf{8ª iteração:}
+\[
+c = \frac{0.734375 + 0.7421875}{2} = 0.73828125
+\]
+\[
+f(0.73828125) = 0.73828125 - \cos(0.73828125) \approx 0.00078
 \]
 
-Em cada iteração, calculamos o ponto médio \( c \) e o valor da função \( f(c) \). Dependendo do sinal de \( f(c) \), atualizamos os valores de \( a \) ou \( b \).
+\section*{Conclusão}
 
-Vamos iterar até que a largura do intervalo \( (b - a)/2 \) seja menor que a tolerância ou até que \( |f(c)| < \text{tol} \).
-
-\subsection*{Tabela de Iterações}
-
-Vamos organizar os cálculos em uma tabela para melhor visualização.
-
-\begin{center}
-\begin{tabular}{c c c c c c}
-\toprule
-Iteração (\( k \)) & \( a \) & \( b \) & \( c \) & \( f(c) \) & \( \frac{b - a}{2} \) \\
-\midrule
-0 & 1.00000000 & 2.00000000 &  &  &  \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\subsection*{Iteração 1}
-
-\begin{enumerate}
-    \item \textbf{Calcular \( c \):}
-    \[
-    c = \frac{1 + 2}{2} = 1.50000000
-    \]
-    \item \textbf{Calcular \( f(c) \):}
-    \[
-    f(1.5) = (1.5)^4 + 1.5 - 4 = 5.0625 + 1.5 - 4 = 2.5625
-    \]
-    \item \textbf{Atualizar os extremos do intervalo:}
-    \begin{itemize}
-        \item Como \( f(1) \times f(1.5) = -2 \times 2.5625 = -5.125 < 0 \), o sinal muda entre \( a \) e \( c \).
-        \item Atualizamos \( b = c \).
-    \end{itemize}
-    \item \textbf{Calcular \( (b - a)/2 \):}
-    \[
-    \frac{1.5 - 1}{2} = 0.25000000
-    \]
-\end{enumerate}
-
-\begin{center}
-\begin{tabular}{c c c c c c}
-\toprule
-Iteração (\( k \)) & \( a \) & \( b \) & \( c \) & \( f(c) \) & \( \frac{b - a}{2} \) \\
-\midrule
-1 & 1.00000000 & 1.50000000 & 1.50000000 & 2.56250000 & 0.25000000 \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\subsection*{Iteração 2}
-
-\begin{enumerate}
-    \item \textbf{Calcular \( c \):}
-    \[
-    c = \frac{1 + 1.5}{2} = 1.25000000
-    \]
-    \item \textbf{Calcular \( f(c) \):}
-    \[
-    f(1.25) = (1.25)^4 + 1.25 - 4 = 2.4414 + 1.25 - 4 = -0.3086
-    \]
-    \item \textbf{Atualizar os extremos do intervalo:}
-    \begin{itemize}
-        \item Como \( f(1) \times f(1.25) = -2 \times (-0.3086) = 0.6172 > 0 \), o sinal não muda entre \( a \) e \( c \).
-        \item Atualizamos \( a = c \).
-    \end{itemize}
-    \item \textbf{Calcular \( (b - a)/2 \):}
-    \[
-    \frac{1.5 - 1.25}{2} = 0.12500000
-    \]
-\end{enumerate}
-
-\begin{center}
-\begin{tabular}{c c c c c c}
-\toprule
-Iteração (\( k \)) & \( a \) & \( b \) & \( c \) & \( f(c) \) & \( \frac{b - a}{2} \) \\
-\midrule
-2 & 1.25000000 & 1.50000000 & 1.25000000 & -0.30860000 & 0.12500000 \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\subsection*{Iteração 3}
-
-\begin{enumerate}
-    \item \textbf{Calcular \( c \):}
-    \[
-    c = \frac{1.25 + 1.5}{2} = 1.37500000
-    \]
-    \item \textbf{Calcular \( f(c) \):}
-    \[
-    f(1.375) = (1.375)^4 + 1.375 - 4 = 3.5706 + 1.375 - 4 = 0.9456
-    \]
-    \item \textbf{Atualizar os extremos do intervalo:}
-    \begin{itemize}
-        \item Como \( f(1.25) \times f(1.375) = -0.3086 \times 0.9456 = -0.2918 < 0 \), o sinal muda entre \( a \) e \( c \).
-        \item Atualizamos \( b = c \).
-    \end{itemize}
-    \item \textbf{Calcular \( (b - a)/2 \):}
-    \[
-    \frac{1.375 - 1.25}{2} = 0.06250000
-    \]
-\end{enumerate}
-
-\begin{center}
-\begin{tabular}{c c c c c c}
-\toprule
-Iteração (\( k \)) & \( a \) & \( b \) & \( c \) & \( f(c) \) & \( \frac{b - a}{2} \) \\
-\midrule
-3 & 1.25000000 & 1.37500000 & 1.37500000 & 0.94560000 & 0.06250000 \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\subsection*{Iteração 4}
-
-\begin{enumerate}
-    \item \textbf{Calcular \( c \):}
-    \[
-    c = \frac{1.25 + 1.375}{2} = 1.31250000
-    \]
-    \item \textbf{Calcular \( f(c) \):}
-    \[
-    f(1.3125) = (1.3125)^4 + 1.3125 - 4 = 2.9699 + 1.3125 - 4 = 0.2825
-    \]
-    \item \textbf{Atualizar os extremos do intervalo:}
-    \begin{itemize}
-        \item Como \( f(1.25) \times f(1.3125) = -0.3086 \times 0.2825 = -0.0872 < 0 \), o sinal muda entre \( a \) e \( c \).
-        \item Atualizamos \( b = c \).
-    \end{itemize}
-    \item \textbf{Calcular \( (b - a)/2 \):}
-    \[
-    \frac{1.3125 - 1.25}{2} = 0.03125000
-    \]
-\end{enumerate}
-
-\begin{center}
-\begin{tabular}{c c c c c c}
-\toprule
-Iteração (\( k \)) & \( a \) & \( b \) & \( c \) & \( f(c) \) & \( \frac{b - a}{2} \) \\
-\midrule
-4 & 1.25000000 & 1.31250000 & 1.31250000 & 0.28250000 & 0.03125000 \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\subsection*{Iteração 5}
-
-\begin{enumerate}
-    \item \textbf{Calcular \( c \):}
-    \[
-    c = \frac{1.25 + 1.3125}{2} = 1.28125000
-    \]
-    \item \textbf{Calcular \( f(c) \):}
-    \[
-    f(1.28125) = (1.28125)^4 + 1.28125 - 4 = 2.7016 + 1.28125 - 4 = -0.0172
-    \]
-    \item \textbf{Atualizar os extremos do intervalo:}
-    \begin{itemize}
-        \item Como \( f(1.25) \times f(1.28125) = -0.3086 \times (-0.0172) = 0.0053 > 0 \), o sinal não muda entre \( a \) e \( c \).
-        \item Atualizamos \( a = c \).
-    \end{itemize}
-    \item \textbf{Calcular \( (b - a)/2 \):}
-    \[
-    \frac{1.3125 - 1.28125}{2} = 0.01562500
-    \]
-\end{enumerate}
-
-\begin{center}
-\begin{tabular}{c c c c c c}
-\toprule
-Iteração (\( k \)) & \( a \) & \( b \) & \( c \) & \( f(c) \) & \( \frac{b - a}{2} \) \\
-\midrule
-5 & 1.28125000 & 1.31250000 & 1.28125000 & -0.01720000 & 0.01562500 \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\subsection*{Iteração 6}
-
-\begin{enumerate}
-    \item \textbf{Calcular \( c \):}
-    \[
-    c = \frac{1.28125 + 1.3125}{2} = 1.29687500
-    \]
-    \item \textbf{Calcular \( f(c) \):}
-    \[
-    f(1.296875) = (1.296875)^4 + 1.296875 - 4 = 2.8338 + 1.296875 - 4 = 0.1307
-    \]
-    \item \textbf{Atualizar os extremos do intervalo:}
-    \begin{itemize}
-        \item Como \( f(1.28125) \times f(1.296875) = -0.0172 \times 0.1307 = -0.0022 < 0 \), o sinal muda entre \( a \) e \( c \).
-        \item Atualizamos \( b = c \).
-    \end{itemize}
-    \item \textbf{Calcular \( (b - a)/2 \):}
-    \[
-    \frac{1.296875 - 1.28125}{2} = 0.00781250
-    \]
-\end{enumerate}
-
-\begin{center}
-\begin{tabular}{c c c c c c}
-\toprule
-Iteração (\( k \)) & \( a \) & \( b \) & \( c \) & \( f(c) \) & \( \frac{b - a}{2} \) \\
-\midrule
-6 & 1.28125000 & 1.29687500 & 1.29687500 & 0.13070000 & 0.00781250 \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\subsection*{Iterações 7 a 20}
-
-Continuamos o processo, repetindo as iterações e ajustando os valores de \( a \) e \( b \) conforme o sinal de \( f(c) \). Os resultados aproximados das próximas iterações são:
-
-\begin{itemize}
-    \item \textbf{Iteração 7:} \( c = 1.28906250 \), \( f(c) = 0.0564 \)
-    \item \textbf{Iteração 8:} \( c = 1.28515625 \), \( f(c) = 0.0196 \)
-    \item \textbf{Iteração 9:} \( c = 1.28320313 \), \( f(c) = 0.0012 \)
-    \item \textbf{Iteração 10:} \( c = 1.28222656 \), \( f(c) = -0.0070 \)
-    \item \textbf{Iteração 11:} \( c = 1.28271484 \), \( f(c) = -0.0029 \)
-    \item \textbf{Iteração 12:} \( c = 1.28295900 \), \( f(c) = -0.0009 \)
-    \item \textbf{Iteração 13:} \( c = 1.28308105 \), \( f(c) = 0.0002 \)
-    \item \textbf{Iteração 14:} \( c = 1.28302002 \), \( f(c) = -0.0004 \)
-    \item \textbf{Iteração 15:} \( c = 1.28305054 \), \( f(c) = -0.0001 \)
-    \item \textbf{Iteração 16:} \( c = 1.28306580 \), \( f(c) = 0.0000 \)
-    \item \textbf{Iteração 17:} \( c = 1.28305817 \), \( f(c) = -0.0000 \)
-    \item \textbf{Iteração 18:} \( c = 1.28306198 \), \( f(c) = -0.0000 \)
-    \item \textbf{Iteração 19:} \( c = 1.28306389 \), \( f(c) = 0.0000 \)
-    \item \textbf{Iteração 20:} \( c = 1.28306293 \), \( f(c) = 0.0000 \)
-\end{itemize}
-
-\subsection*{Verificação da Convergência}
-
-Após 20 iterações, a diferença \( (b - a)/2 \) é menor que a tolerância \( 1 \times 10^{-6} \):
-
-\[
-\frac{b - a}{2} = \frac{1.2830638885498047 - 1.2830629348754883}{2} \approx 4.7683716 \times 10^{-7} < 1 \times 10^{-6}
-\]
-
-Portanto, podemos considerar que a raiz aproximada é:
-
-\[
-\text{Raiz aproximada} = c \approx 1.2830634117126465
-\]
-
-\subsection*{Resultado Final}
-
-A raiz aproximada encontrada pelo método da bisseção é:
-
-\[
-\text{Raiz} \approx 1.2837820053100586
-\]
-
-\subsection*{Conclusão}
-
-Aplicando manualmente o método da bisseção à função \( f(x) = x^4 + x - 4 \) no intervalo \([1, 2]\), encontramos uma raiz aproximada de \( x \approx 1.283782 \) após 20 iterações, atendendo à tolerância de \( 1 \times 10^{-6} \).
+A raiz aproximada de \(f(x) = 0\) é \(x \approx 0.73828\), com uma precisão de \(10^{-4}\).
 
 \end{document}
